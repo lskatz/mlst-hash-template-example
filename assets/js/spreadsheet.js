@@ -2,20 +2,37 @@ document.addEventListener("DOMContentLoaded", function () {
   Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/profiles.tsv", {
     download: true,
     header: true,
+    delimiter: "\t",
     complete: function (results) {
       const data = results.data;
       const container = document.getElementById("table-container");
-      let html = "<table><thead><tr>";
 
-      // Table headers
-      const headers = Object.keys(data[0]);
+      // Identify NEIS headers
+      const allHeaders = Object.keys(data[0]);
+      const neisHeaders = allHeaders.filter(h => h.startsWith("NEIS"));
+      const otherHeaders = allHeaders.filter(h => !h.startsWith("NEIS"));
+
+      // New headers: all non-NEIS + sortedHashes
+      const headers = [...otherHeaders, "sortedHashes"];
+
+      // Begin HTML table
+      let html = "<table><thead><tr>";
       headers.forEach(header => html += `<th>${header}</th>`);
       html += "</tr></thead><tbody>";
 
-      // Table rows
+      // Process each row
       data.forEach(row => {
         html += "<tr>";
-        headers.forEach(header => html += `<td>${row[header]}</td>`);
+
+        // Add non-NEIS fields
+        otherHeaders.forEach(header => {
+          html += `<td>${row[header]}</td>`;
+        });
+
+        // Add sortedHashes column
+        const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
+        html += `<td>${hashValues.join(",")}</td>`;
+
         html += "</tr>";
       });
 
