@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
         const hashes = hashValues.join(",");
         html += `
-          <td title="${value}" class="sortedHashes">
+          <td title="${row[header]}" class="sortedHashes">
             <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
             <span class="hashText">${hashes}</span>
           </td>`;
