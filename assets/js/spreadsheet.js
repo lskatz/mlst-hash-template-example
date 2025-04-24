@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+document.getElementById("searchInput").focus();
 document.getElementById("searchInput").addEventListener("keyup", function () {
   const filter = this.value.toUpperCase();
   const rows = document.querySelectorAll("#table-container table tbody tr");
