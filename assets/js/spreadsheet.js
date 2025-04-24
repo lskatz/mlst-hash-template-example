@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/clusters.tsv", {
+  Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/profiles.tsv", {
     download: true,
     header: true,
     complete: function (results) {
