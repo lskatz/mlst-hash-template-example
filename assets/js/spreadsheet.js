@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
       let html = "<table><thead><tr>";
       headers.forEach(header => {
         if (header === "sortedHashes") {
-          html += `<th style="width: 500px;">${header}</th>`;
+          html += `<th style="width: 500px;" title="${header}>${header}</th>`;
         } else {
-          html += `<th>${header}</th>`;
+          html += `<th title="${header}>${header}</th>`;
         }
       });      
       html += "</tr></thead><tbody>";
@@ -41,14 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Add non-NEIS fields
         otherHeaders.forEach(header => {
-          html += `<td>${row[header]}</td>`;
+          html += `<td title="${value}">${row[header]}</td>`;
         });
 
         // Add sortedHashes column
         const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
         const hashes = hashValues.join(",");
         html += `
-          <td class="sortedHashes">
+          <td title="${value}" class="sortedHashes">
             <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
             <span class="hashText">${hashes}</span>
           </td>`;
