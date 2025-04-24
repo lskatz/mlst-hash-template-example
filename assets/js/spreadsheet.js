@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const hashes = hashValues.join(",");
         html += `
           <td class="sortedHashes">
-            <span class="hashText">${hashes}</span>
             <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
+            <span class="hashText">${hashes}</span>
           </td>`;
         
 

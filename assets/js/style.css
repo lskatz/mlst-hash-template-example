@@ -12,7 +12,7 @@
     white-space: nowrap;        /* Don't wrap text */
     overflow: hidden;           /* Hide text that overflows */
     text-overflow: ellipsis;    /* Add ... when clipped (optional) */
-    max-width: 300px;           /* Limit the width so it can overflow */
+    max-width: 500px;           /* Limit the width so it can overflow */
     position: relative;
   }
   .copyButton {
