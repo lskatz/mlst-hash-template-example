@@ -1,4 +1,3 @@
-
 function copyToClipboard(button) {
   const text = button.parentElement.querySelector(".hashText").textContent;
   navigator.clipboard.writeText(text).then(() => {
@@ -28,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
       let html = "<table><thead><tr>";
       headers.forEach(header => {
         if (header === "sortedHashes") {
-          html += `<th style="width: 500px;" title="${header}>${header}</th>`;
+          html += `<th style="width: 500px;" title="${header}">${header}</th>`; // Fixed the quote
         } else {
-          html += `<th title="${header}>${header}</th>`;
+          html += `<th title="${header}">${header}</th>`;
         }
       });      
       html += "</tr></thead><tbody>";
@@ -48,12 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
         const hashes = hashValues.join(",");
         html += `
-          <td title="${row[header]}" class="sortedHashes">
+          <td title="${hashes}" class="sortedHashes"> <!-- Changed to use hashes here -->
             <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
             <span class="hashText">${hashes}</span>
           </td>`;
         
-
         html += "</tr>";
       });
 
@@ -64,13 +62,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("searchInput").addEventListener("keyup", function () {
     const filter = this.value.toUpperCase();
-    const rows = document.querySelectorAll("#table-container table tbody tr");
-    rows.forEach(row => {
-      const match = [...row.cells].some(cell =>
-        cell.textContent.toUpperCase().includes(filter)
-      );
-      row.style.display = match ? "" : "none";
-    });
-  });
-
-});
+    const rows = document.querySelectorAll("#table
