@@ -9,6 +9,10 @@
     max-width: 300px;
     cursor: help; /* Show help cursor on hover */
   }
+  th {
+    white-space: wrap;
+    text-overflow: unset;
+  }
   td.sortedHashes {
     white-space: nowrap;        /* Don't wrap text */
     overflow: hidden;           /* Hide text that overflows */
