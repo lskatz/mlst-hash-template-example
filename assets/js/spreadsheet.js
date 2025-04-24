@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Add sortedHashes column
         const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
-        html += `<td>${hashValues.join(",")}</td>`;
+        html += `<td class="sortedHashes">${hashValues.join(",")}</td>`;
 
         html += "</tr>";
       });
