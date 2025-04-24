@@ -1,3 +1,12 @@
+
+function copyToClipboard(button) {
+  const text = button.parentElement.querySelector(".hashText").textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    button.textContent = "✅";
+    setTimeout(() => button.textContent = "📋", 1000);
+  });
+} 
+
 document.addEventListener("DOMContentLoaded", function () {
   Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/profiles.tsv", {
     download: true,
@@ -17,7 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Begin HTML table
       let html = "<table><thead><tr>";
-      headers.forEach(header => html += `<th>${header}</th>`);
+      headers.forEach(header => {
+        if (header === "sortedHashes") {
+          html += `<th style="width: 500px;">${header}</th>`;
+        } else {
+          html += `<th>${header}</th>`;
+        }
+      });      
       html += "</tr></thead><tbody>";
 
       // Process each row
@@ -46,14 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
       container.innerHTML = html;
     }
   });
-
-  function copyToClipboard(button) {
-    const text = button.parentElement.querySelector(".hashText").textContent;
-    navigator.clipboard.writeText(text).then(() => {
-      button.textContent = "✅";
-      setTimeout(() => button.textContent = "📋", 1000);
-    });
-  }  
 
   document.getElementById("searchInput").addEventListener("keyup", function () {
     const filter = this.value.toUpperCase();
