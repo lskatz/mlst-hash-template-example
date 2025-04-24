@@ -62,4 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("searchInput").addEventListener("keyup", function () {
     const filter = this.value.toUpperCase();
-    const rows = document.querySelectorAll("#table
+    const rows = document.querySelectorAll("#table-container table tbody tr");
+    rows.forEach(row => {
+      const match = [...row.cells].some(cell =>
+        cell.textContent.toUpperCase().includes(filter)
+      );
+      row.style.display = match ? "" : "none";
+    });
+  });
+
+});
