@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Add non-NEIS fields
         otherHeaders.forEach(header => {
-          html += `<td title="${value}">${value}</td>`;
+          html += `<td title="${row[header]}">${row[header]}</td>`;
         });
 
         // Add sortedHashes column
