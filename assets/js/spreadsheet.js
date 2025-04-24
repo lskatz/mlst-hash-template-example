@@ -31,7 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Add sortedHashes column
         const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
-        html += `<td class="sortedHashes">${hashValues.join(",")}</td>`;
+        const hashes = hashValues.join(",");
+        html += `
+          <td class="sortedHashes">
+            <span class="hashText">${hashes}</span>
+            <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
+          </td>`;
+        
 
         html += "</tr>";
       });
@@ -40,6 +46,14 @@ document.addEventListener("DOMContentLoaded", function () {
       container.innerHTML = html;
     }
   });
+
+  function copyToClipboard(button) {
+    const text = button.parentElement.querySelector(".hashText").textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      button.textContent = "✅";
+      setTimeout(() => button.textContent = "📋", 1000);
+    });
+  }  
 
   document.getElementById("searchInput").addEventListener("keyup", function () {
     const filter = this.value.toUpperCase();

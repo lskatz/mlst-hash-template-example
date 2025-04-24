@@ -6,11 +6,29 @@ title: Home
 # Spreadsheet Viewer
 
 <style>
+  #table-container table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
   td.sortedHashes {
     white-space: nowrap;        /* Don't wrap text */
     overflow: hidden;           /* Hide text that overflows */
     text-overflow: ellipsis;    /* Add ... when clipped (optional) */
     max-width: 300px;           /* Limit the width so it can overflow */
+    position: relative;
+  }
+  .copyButton {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    background: none;
+    border: none;
   }
 </style>
 
