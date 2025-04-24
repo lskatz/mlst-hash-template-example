@@ -10,7 +10,7 @@ title: Home
     table-layout: fixed;
     width: 100%;
   }
-  td {
+  td, th {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
