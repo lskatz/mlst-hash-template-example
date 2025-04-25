@@ -4,7 +4,7 @@ function copyToClipboard(button) {
     button.textContent = "✅";
     setTimeout(() => button.textContent = "📋", 1000);
   });
-} 
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/profiles.tsv", {
@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
       let html = "<table><thead><tr>";
       headers.forEach(header => {
         if (header === "sortedHashes") {
-          html += `<th style="width: 500px;" title="${header}">${header}</th>`; // Fixed the quote
+          html += `<th style="width: 500px;" title="${header}">${header}</th>`;
         } else {
           html += `<th title="${header}">${header}</th>`;
         }
-      });      
+      });
       html += "</tr></thead><tbody>";
 
       // Process each row
@@ -47,11 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort();
         const hashes = hashValues.join(",");
         html += `
-          <td title="${hashes}" class="sortedHashes"> <!-- Changed to use hashes here -->
+          <td title="${hashes}" class="sortedHashes">
             <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
             <span class="hashText">${hashes}</span>
           </td>`;
-        
+
         html += "</tr>";
       });
 
@@ -60,15 +60,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  document.getElementById("searchInput").addEventListener("keyup", function () {
-    const filter = this.value.toUpperCase();
-    const rows = document.querySelectorAll("#table-container table tbody tr");
-    rows.forEach(row => {
-      const match = [...row.cells].some(cell =>
-        cell.textContent.toUpperCase().includes(filter)
-      );
-      row.style.display = match ? "" : "none";
-    });
+  // Create search instructions and threshold slider
+  const searchInput = document.getElementById("searchInput");
+  searchInput.placeholder = "Enter comma-separated hashes to search for (e.g., abc,def,ghi)";
+
+  const thresholdControl = document.createElement("div");
+  thresholdControl.innerHTML = `
+    <label for="matchThreshold">Match threshold (%): <span id="thresholdValue">85</span>%</label>
+    <input type="range" id="matchThreshold" min="0" max="100" value="85">
+  `;
+  searchInput.insertAdjacentElement("afterend", thresholdControl);
+
+  const thresholdSlider = document.getElementById("matchThreshold");
+  const thresholdValueLabel = document.getElementById("thresholdValue");
+
+  thresholdSlider.addEventListener("input", function () {
+    thresholdValueLabel.textContent = this.value;
+    performSearch();
   });
 
+  searchInput.addEventListener("keyup", performSearch);
+
+  function performSearch() {
+    const filter = searchInput.value.toUpperCase().split(",").map(h => h.trim()).filter(Boolean);
+    const threshold = parseInt(thresholdSlider.value, 10);
+    const rows = document.querySelectorAll("#table-container table tbody tr");
+
+    rows.forEach(row => {
+      const hashCell = row.querySelector(".sortedHashes .hashText");
+      if (!hashCell) return;
+
+      const cellHashes = hashCell.textContent.toUpperCase().split(",").filter(Boolean);
+      const matches = filter.filter(h => cellHashes.includes(h)).length;
+      const percentMatch = (matches / filter.length) * 100;
+
+      row.style.display = percentMatch >= threshold ? "" : "none";
+    });
+  }
 });
