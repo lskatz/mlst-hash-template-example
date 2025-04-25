@@ -7,13 +7,6 @@ function copyToClipboard(button) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Add example hashes button functionality
-  document.getElementById("exampleButton").addEventListener("click", function () {
-    const firstRow = data.find(row => row); // Get first non-empty row
-    const exampleHashes = neisHeaders.map(h => firstRow[h]).filter(Boolean).slice(0, 3);
-    document.getElementById("searchInput").value = exampleHashes.join(", ");
-    filterRows();
-  });
   Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/profiles.tsv", {
     download: true,
     header: true,
@@ -80,5 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("searchInput").addEventListener("keyup", filterRows);
       document.getElementById("thresholdInput").addEventListener("change", filterRows);
     }
+  });
+  // Add example hashes button functionality
+  document.getElementById("exampleButton").addEventListener("click", function () {
+    const firstRow = data.find(row => row); // Get first non-empty row
+    const exampleHashes = neisHeaders.map(h => firstRow[h]).filter(Boolean).slice(0, 3);
+    document.getElementById("searchInput").value = exampleHashes.join(", ");
+    filterRows();
   });
 });
