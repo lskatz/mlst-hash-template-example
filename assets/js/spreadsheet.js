@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const hashes = hashValues.join(",");
           html += `
             <td title="${hashes}" class="sortedHashes">
-              <button class="copyButton" onclick="copyToClipboard(this)">📋</button>
+              <button class="copyButton" onclick="copyToClipboard(this)" aria-label="Copy hashes to clipboard">📋</button>
               <span class="hashText">${hashes}</span>
             </td>`;
           html += "</tr>";
@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         const queryHashes = input.split(/\s*,\s*/).filter(Boolean);
         const filtered = data.filter(row => {
+          if (!row || typeof row !== "object") return false;
           const rowHashes = neisHeaders.map(h => row[h]).filter(Boolean);
           const matchCount = queryHashes.filter(q => rowHashes.includes(q)).length;
           const percentMatch = (matchCount / queryHashes.length) * 100;
@@ -78,8 +79,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
       renderTable(data);
 
-      document.getElementById("searchInput").addEventListener("keyup", filterRows);
+      let debounceTimeout;
+      document.getElementById("searchInput").addEventListener("keyup", () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(filterRows, 250);
+      });
+      
       document.getElementById("thresholdInput").addEventListener("change", filterRows);
+
+      function downloadTSV(filteredData) {
+        const rows = [headers]; // already defined in your script
+      
+        filteredData.forEach(row => {
+          const rowData = otherHeaders.map(h => row[h]);
+          const hashValues = neisHeaders.map(h => row[h]).filter(Boolean).sort().join(",");
+          rowData.push(hashValues);
+          rows.push(rowData);
+        });
+      
+        const tsvContent = rows.map(row => row.join("\t")).join("\n");
+        const blob = new Blob([tsvContent], { type: "text/tab-separated-values" });
+        const url = URL.createObjectURL(blob);
+      
+        const now = new Date().toISOString().replace(/:/g, "-").slice(0, 19); // Remove colons for filesystem safety
+        const filename = `filtered_table_${now}.tsv`;
+      
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+      
+      
     }
   });
+
+  document.getElementById("downloadButton").addEventListener("click", function () {
+    const input = document.getElementById("searchInput").value.trim();
+    const threshold = parseInt(document.getElementById("thresholdInput").value) || 0;
+  
+    const queryHashes = input ? input.split(/\s*,\s*/).filter(Boolean) : [];
+    const filtered = queryHashes.length > 0 ? data.filter(row => {
+      const rowHashes = neisHeaders.map(h => row[h]).filter(Boolean);
+      const matchCount = queryHashes.filter(q => rowHashes.includes(q)).length;
+      const percentMatch = (matchCount / queryHashes.length) * 100;
+      return percentMatch >= threshold;
+    }) : data;
+  
+    downloadTSV(filtered);
+  });
+  
 });

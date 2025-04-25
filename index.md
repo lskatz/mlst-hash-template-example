@@ -25,6 +25,7 @@ Results will show rows with a percentage of matches above your selected threshol
 
   <label for="thresholdInput">Minimum Match %:</label>
   <input type="number" id="thresholdInput" value="85" min="0" max="100" step="5" />%
+  <button id="downloadButton">⬇️</button>
 </div>
 
 <div id="matchCount"></div>
