@@ -6,6 +6,14 @@ function copyToClipboard(button) {
   });
 }
 
+// Add example hashes button functionality
+document.getElementById("exampleButton").addEventListener("click", function () {
+  const firstRow = data.find(row => row); // Get first non-empty row
+  const exampleHashes = neisHeaders.map(h => firstRow[h]).filter(Boolean).slice(0, 3);
+  document.getElementById("searchInput").value = exampleHashes.join(", ");
+  filterRows();
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   Papa.parse("/mlst-hash-template-example/data/Nmen.dbh/profiles.tsv", {
     download: true,
