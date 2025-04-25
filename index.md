@@ -15,11 +15,13 @@ Some other columns include LINcode which helps label clusters and also `sortedHa
 This field is the list of MLST alleles, transformed into md5sums.
 
 Search by entering comma-separated md5sum alleles.
+Define what percent of the alleles have to match in order to show on the table.
 Results will show rows with a percentage of matches above your selected threshold.
 
 <div id="controls" style="margin-bottom: 1em;">
   <button id="exampleButton">Try Example</button>
   <input type="text" id="searchInput" placeholder="Enter comma-separated hashes to match (e.g., abc123, def456)" />
+
   <label for="thresholdInput">Minimum Match %:</label>
   <input type="number" id="thresholdInput" value="85" min="0" max="100" step="5" />%
 </div>
