@@ -75,7 +75,19 @@ I wanted to update a few fields in `profiles.tsv` and so I ran this one liner:
 cp data/Nmen.dbh/profiles.tsv data/Nmen.dbh/profiles.tsv.bak
 cat data/Nmen.dbh/profiles.tsv.bak | \
   perl -F'\t' -lane '
-    $id = $F[3]; if(!$id){ if($F[1]){ $id="PM-$F[1]";}} if(!$id){$id=$F[0];} if($.==1){$id="ID";} print join("\t",$id,@F[5..scalar(@F)-1]);
+    $id = $F[3]; 
+    if(!$id){ 
+      if($F[1]){ 
+        $id="PM-$F[1]";
+      }
+    } 
+    if(!$id){
+      $id=$F[0];
+    } 
+    if($.==1){
+      $id="ID";
+    } 
+    print join("\t",$id,@F[5..scalar(@F)-1]);
   ' > data/Nmen.dbh/profiles.tsv
 ```
 
