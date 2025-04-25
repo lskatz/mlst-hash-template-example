@@ -12,6 +12,6 @@ title: Home
 
 <input type="text" id="searchInput" placeholder="Enter comma-separated hashes to match (e.g., abc123,def456)..." />
 <label for="thresholdInput">Minimum Match %:</label>
-<input type="number" id="thresholdInput" value="85" min="0" max="100" step="1" />%
-<div id="table-container"></div>
+<input type="number" id="thresholdInput" value="85" min="0" max="100" step="5" />%
 <div id="matchCount"></div>
+<div id="table-container"></div>
