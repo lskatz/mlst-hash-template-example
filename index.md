@@ -22,7 +22,7 @@ Results will show rows with a percentage of matches above your selected threshol
 <div id="controls" style="margin-bottom: 1em;">
   <button id="downloadButton">⬇️</button>
   <button id="exampleButton">Try Example</button>
-  <input type="text" id="searchInput" placeholder="Enter comma-separated hashes to match (e.g., abc123, def456)" />
+  <input type="text" id="searchInput" placeholder="Enter comma-separated hashes to match" />
   <br />
   <label for="thresholdInput">Minimum Match %:</label>
   <input type="number" id="thresholdInput" value="85" min="0" max="100" step="5" />%
