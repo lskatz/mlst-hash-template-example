@@ -2,16 +2,18 @@
     table-layout: fixed;
     width: 100%;
   }
-  td, th {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px;
+  td{
     cursor: help; /* Show help cursor on hover */
   }
   th {
     white-space: wrap;
     text-overflow: unset;
+  }
+  td, th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
   }
   td.sortedHashes {
     white-space: nowrap;        /* Don't wrap text */
@@ -27,3 +29,6 @@
     background: none;
     border: none;
   }
+#searchInput{
+  width: 50em;
+}
