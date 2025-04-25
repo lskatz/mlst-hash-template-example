@@ -3,14 +3,18 @@ layout: default
 title: Home
 ---
 
-# Spreadsheet Viewer
+# Query MLST profiles
 
 <link rel="stylesheet" href="/mlst-hash-template-example/assets/css/style.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="/mlst-hash-template-example/assets/js/spreadsheet.js"></script>
 
-Search by entering comma-separated hash values.
+The below table contains samples of _Neisseria meningitidis_ with some identifiers.
+Some other columns include LINcode which helps label clusters and also `sortedHashes`.
+This field is the list of MLST alleles, transformed into md5sums.
+
+Search by entering comma-separated md5sum alleles.
 Results will show rows with a percentage of matches above your selected threshold.
 
 <div id="controls" style="margin-bottom: 1em;">
