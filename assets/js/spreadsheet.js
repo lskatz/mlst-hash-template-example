@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = results.data;
       const container = document.getElementById("table-container");
       const matchCount = document.getElementById("matchCount");
+      
+      // Add example hashes button functionality
+      document.getElementById("exampleButton").addEventListener("click", function () {
+        const firstRow = data.find(row => row); // Get first non-empty row
+        const exampleHashes = neisHeaders.map(h => firstRow[h]).filter(Boolean).slice(0, 3);
+        document.getElementById("searchInput").value = exampleHashes.join(", ");
+        filterRows();
+      });
 
       // Identify NEIS headers
       const allHeaders = Object.keys(data[0]);
@@ -73,12 +81,5 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("searchInput").addEventListener("keyup", filterRows);
       document.getElementById("thresholdInput").addEventListener("change", filterRows);
     }
-  });
-  // Add example hashes button functionality
-  document.getElementById("exampleButton").addEventListener("click", function () {
-    const firstRow = data.find(row => row); // Get first non-empty row
-    const exampleHashes = neisHeaders.map(h => firstRow[h]).filter(Boolean).slice(0, 3);
-    document.getElementById("searchInput").value = exampleHashes.join(", ");
-    filterRows();
   });
 });
