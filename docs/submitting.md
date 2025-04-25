@@ -1,4 +1,4 @@
-# How to submit new alleles
+# Submitting data
 
 All data live in a database at <https://github.com/lskatz/mlst-hash-template-example>.
 The specification for how the data are formatted is at <https://lskatz.github.io/mlst-hash-template-example/docs/specification.html>.

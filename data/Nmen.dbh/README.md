@@ -1,4 +1,7 @@
-# Downloading and formatting a cgMLST scheme
+# Original methods
+
+This is how I created the Nmen database from original files
+and according to the hash database specification.
 
 I need these files
 

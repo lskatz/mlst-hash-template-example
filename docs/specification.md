@@ -1,4 +1,6 @@
-# File format specification for the hash allele database
+# Database spec
+
+This document describes the file format specification for the hash allele database
 
 The hash allele database format describes an MLST database where each locus
 has many alleles.
