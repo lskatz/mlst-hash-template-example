@@ -13,6 +13,7 @@ title: Home
 The below table contains samples of _Neisseria meningitidis_ with some identifiers.
 Some other columns include LINcode which helps label clusters and also `sortedHashes`.
 This field is the list of MLST alleles, transformed into md5sums.
+Add to the database by making a pull request at <https://github.com/lskatz/mlst-hash-template-example>.
 
 Search by entering comma-separated md5sum alleles.
 Define what percent of the alleles have to match in order to show on the table.
