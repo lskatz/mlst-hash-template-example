@@ -36,3 +36,8 @@ inc/
 
 # Tests
 /t/senterica.dbh
+
+# Temp files for me
+/data/Nmen.dbh/archive/
+/data/Nmen/
+/data/senterica/
