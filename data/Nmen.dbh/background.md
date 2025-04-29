@@ -31,11 +31,14 @@ those alleles.
 
 1. Allelic sequences are lost through hashing.
 2. The database creates a limited way that the database can be queried: either the query hits against an exact hashsum or it doesn't.
-3. The database does not state whether any one allele conforms to any one rule. For example, it is unknown if a particular allele is bound by start and stop sites.
-4. There is a lot of work ahead of us.
+3. There is a lot of work ahead of us.
 
 ## MLST hash query
 
 Knowing that we now have a database with hashes and that it is defined in a specification, we can now think about how best to query the database.
+Additionally, something very interesting happens when we hash and we know that [collisions are virtually absent](https://lskatz.github.io/posts/2024/07/30/hash-collision-experiment.html): we can change the paradigm that we have a map of which locus=>allele and instead change our thought process to a sorted list of hashes.
+Comparing a sorted hash instead of a dictionary in computational terms is much faster!
 
-TODO
+There is a straightforward JavaScript library that accepts a sorted list of hashes, compares it against the database of profiles, and then returns anything above the threshold of percent matching.
+
+There is an argument that this could be done much faster with a compiled library or maybe a more sophisticated algorithm, and I look forward to any insights.
