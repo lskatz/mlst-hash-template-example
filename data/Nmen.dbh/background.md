@@ -42,3 +42,5 @@ Comparing a sorted hash instead of a dictionary in computational terms is much f
 There is a straightforward JavaScript library that accepts a sorted list of hashes, compares it against the database of profiles, and then returns anything above the threshold of percent matching.
 
 There is an argument that this could be done much faster with a compiled library or maybe a more sophisticated algorithm, and I look forward to any insights.
+
+---
